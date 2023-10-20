@@ -1,10 +1,12 @@
 package com.mathsly.animelibrary.services;
 
+import com.mathsly.animelibrary.domain.entities.Novel;
 import com.mathsly.animelibrary.domain.entities.Title;
 import com.mathsly.animelibrary.repositories.TitleSQLiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,7 +19,10 @@ public class TitleService {
 
     public Title getOne(Long id){
         return titleRepository.findById(id).orElseThrow(() -> new RuntimeException("Title not found!"));
+
+
     }
+    public List<Title> getAll(){ return titleRepository.findAll(); }
 
     public long save(Title title){
         return titleRepository.saveAndFlush(title).getId();
