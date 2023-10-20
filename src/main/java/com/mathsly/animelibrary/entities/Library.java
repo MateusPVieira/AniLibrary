@@ -1,2 +1,23 @@
-package com.mathsly.animelibrary.entities;public class Library {
+package com.mathsly.animelibrary.entities;
+
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+public class Library {
+    @OneToMany
+    private List<Title> titles;
+    @Id
+    private Long id;
+
+    public Library(){}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
