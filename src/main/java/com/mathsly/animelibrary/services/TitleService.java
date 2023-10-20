@@ -25,6 +25,7 @@ public class TitleService {
 
 
     public Optional<Long> update(Title title, Long id){
+        title.setId(id);
         return titleRepository.findById(id).map(
                 titleToUpdate ->
                 {

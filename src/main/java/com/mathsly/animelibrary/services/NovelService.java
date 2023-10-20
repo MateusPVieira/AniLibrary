@@ -29,6 +29,7 @@ public class NovelService {
     }
 
     public Optional<Long> update(Novel novel, Long id){
+        novel.setId(id);
         return novelRepository.findById(id).map(
                 novelToUpdate ->
                 {

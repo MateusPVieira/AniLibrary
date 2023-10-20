@@ -29,6 +29,7 @@ public class MangaService {
     }
 
     public Optional<Long> update(Manga manga, Long id){
+        manga.setId(id);
         return mangaRepository.findById(id).map(
                 mangaToUpdate ->
                 {

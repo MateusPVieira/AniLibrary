@@ -29,6 +29,7 @@ public class LibraryService {
     }
 
     public Optional<Long> update(Library library, Long id){
+        library.setId(id);
         return libraryRepository.findById(id).map(
                 libraryToUpdate ->
                 {

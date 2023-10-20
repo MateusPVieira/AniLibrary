@@ -29,6 +29,7 @@ public class AnimeService {
     }
 
     public Optional<Long> update(Anime anime, Long id){
+        anime.setId(id);
         return animeRepository.findById(id).map(
                 animeToUpdate ->
                 {
