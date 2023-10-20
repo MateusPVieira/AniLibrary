@@ -1,6 +1,6 @@
 package com.mathsly.animelibrary.services;
 
-import com.mathsly.animelibrary.entities.Manga;
+import com.mathsly.animelibrary.domain.entities.Manga;
 import com.mathsly.animelibrary.repositories.MangaSQLiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.mathsly.animelibrary.services;
 
-import com.mathsly.animelibrary.entities.Novel;
+import com.mathsly.animelibrary.domain.entities.Novel;
 import com.mathsly.animelibrary.repositories.NovelSQLiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

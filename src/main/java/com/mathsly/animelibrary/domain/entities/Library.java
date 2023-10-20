@@ -1,4 +1,4 @@
-package com.mathsly.animelibrary.entities;
+package com.mathsly.animelibrary.domain.entities;
 
 import jakarta.persistence.*;
 

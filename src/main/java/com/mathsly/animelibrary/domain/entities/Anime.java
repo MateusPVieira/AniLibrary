@@ -1,10 +1,10 @@
-package com.mathsly.animelibrary.entities;
+package com.mathsly.animelibrary.domain.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Novel {
+public class Anime{
     private int currentChapter;
     private int lastChapter;
     private boolean isUpToDate;
@@ -12,7 +12,8 @@ public class Novel {
     @Id
     private Long id;
 
-    public Novel(){}
+    public Anime(){}
+
 
     public int getCurrentChapter() {
         return currentChapter;
