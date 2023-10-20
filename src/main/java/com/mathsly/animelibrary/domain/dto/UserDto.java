@@ -2,17 +2,17 @@ package com.mathsly.animelibrary.domain.dto;
 
 import com.mathsly.animelibrary.domain.entities.User;
 
+
 public class UserDto {
     private Long id;
     private LibraryDto library;
 
     public UserDto() {
-        // Default constructor
+        // Construtor padrão
     }
 
     public UserDto(User user) {
         this.id = user.getId();
-        // Map the Library entity to a LibraryDto
         if (user.getLibrary() != null) {
             this.library = new LibraryDto(user.getLibrary());
         }
@@ -32,5 +32,14 @@ public class UserDto {
 
     public void setLibrary(LibraryDto library) {
         this.library = library;
+    }
+
+    public User toEntity() {
+        User user = new User();
+        user.setId(this.id);
+        if (this.library != null) {
+            user.setLibrary(this.library.toEntity());
+        }
+        return user;
     }
 }

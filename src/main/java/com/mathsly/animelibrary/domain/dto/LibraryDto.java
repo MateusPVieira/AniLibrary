@@ -5,6 +5,7 @@ import com.mathsly.animelibrary.domain.entities.Library;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class LibraryDto {
     private Long id;
     private List<TitleDto> titles;  // Lista de objetos TitleDto
@@ -15,8 +16,6 @@ public class LibraryDto {
 
     public LibraryDto(Library library) {
         this.id = library.getId();
-
-        // Mapeie a lista de títulos para uma lista de TitleDto
         this.titles = library.getTitles().stream().map(TitleDto::new).collect(Collectors.toList());
     }
 
@@ -34,5 +33,13 @@ public class LibraryDto {
 
     public void setTitles(List<TitleDto> titles) {
         this.titles = titles;
+    }
+
+    public Library toEntity() {
+        Library library = new Library();
+        library.setId(this.id);
+        // Mapear a lista de TitleDto para uma lista de Title
+        library.setTitles(this.titles.stream().map(TitleDto::toEntity).collect(Collectors.toList()));
+        return library;
     }
 }

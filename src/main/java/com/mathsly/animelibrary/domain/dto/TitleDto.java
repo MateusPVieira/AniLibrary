@@ -17,13 +17,14 @@ public class TitleDto {
     public TitleDto(Title title) {
         this.id = title.getId();
 
-        // Mapeie os relacionamentos para os respectivos DTOs
         if (title.getManga() != null) {
             this.manga = new MangaDto(title.getManga());
         }
+
         if (title.getAnime() != null) {
             this.anime = new AnimeDto(title.getAnime());
         }
+
         if (title.getNovel() != null) {
             this.novel = new NovelDto(title.getNovel());
         }
@@ -70,7 +71,24 @@ public class TitleDto {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public Title toEntity() {
+        Title title = new Title();
+        title.setId(this.id);
+
+        if (this.manga != null) {
+            title.setManga(this.manga.toEntity());
+        }
+
+        if (this.anime != null) {
+            title.setAnime(this.anime.toEntity());
+        }
+
+        if (this.novel != null) {
+            title.setNovel(this.novel.toEntity());
+        }
+
+        title.setAuthor(this.author);
+        return title;
+    }
 }
-
-
-
