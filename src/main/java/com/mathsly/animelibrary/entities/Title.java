@@ -15,6 +15,8 @@ public class Title {
     private Anime anime;
     @OneToOne
     private Novel novel;
+
+    private String author;
     @Id
     private Long id;
 
@@ -26,5 +28,37 @@ public class Title {
 
     public Long getId() {
         return id;
+    }
+
+    public Manga getManga() {
+        return manga;
+    }
+
+    public void setManga(Manga manga) {
+        this.manga = manga;
+    }
+
+    public Anime getAnime() {
+        return anime;
+    }
+
+    public void setAnime(Anime anime) {
+        this.anime = anime;
+    }
+
+    public Novel getNovel() {
+        return novel;
+    }
+
+    public void setNovel(Novel novel) {
+        this.novel = novel;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

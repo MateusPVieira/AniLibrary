@@ -14,6 +14,7 @@ public class Anime{
 
     public Anime(){}
 
+
     public int getCurrentChapter() {
         return currentChapter;
     }

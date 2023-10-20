@@ -20,4 +20,12 @@ public class Library {
     public Long getId() {
         return id;
     }
+
+    public List<Title> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<Title> titles) {
+        this.titles = titles;
+    }
 }

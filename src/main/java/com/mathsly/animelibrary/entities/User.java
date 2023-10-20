@@ -20,4 +20,12 @@ public class User {
     public Long getId() {
         return id;
     }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
+    }
 }
