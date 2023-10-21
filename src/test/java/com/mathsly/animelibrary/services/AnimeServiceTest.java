@@ -62,9 +62,7 @@ class AnimeServiceTest {
 
         @Test
         void ShouldNotCallRepositoryIfIdParameterIsNull() {
-            final BusinessException e = assertThrows(BusinessException.class, () -> {
-                service.getOne(null);
-            });
+            final IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> service.getOne(null));
 
             assertThat(e, notNullValue());
             assertThat(e.getMessage(), is("The given id must not be null"));
@@ -73,9 +71,35 @@ class AnimeServiceTest {
 
         @Test
         void ShouldReturnBusinessExceptionIfFailToFindAnime() {
-            final BusinessException e = assertThrows(BusinessException.class, () -> {
-                service.getOne(noExistingId);
-            });
+            final BusinessException e = assertThrows(BusinessException.class, () -> service.getOne(noExistingId));
+
+            assertThat(e.getMessage(), is(format("Anime with id = %s not found!", noExistingId)));
+        }
+    }
+
+
+    @Nested
+    @DisplayName("Save method")
+    class SaveMethodTest {
+        @Test
+        void ShouldSaveAnime() {
+            when(repository.saveAndFlush(anime)).thenReturn(anime);
+
+            long savedId = service.save(anime);
+
+            assertEquals(anime.getId(), savedId);
+            verify(repository).saveAndFlush(anime);
+        }
+
+        @Test
+        void ShouldThrowExceptionWhenAnimeIsNull() {
+            assertThrows(IllegalArgumentException.class, () -> service.save(null));
+            verifyNoInteractions(repository);
+        }
+
+        @Test
+        void ShouldReturnBusinessExceptionIfFailToFindAnime() {
+            final BusinessException e = assertThrows(BusinessException.class, () -> service.getOne(noExistingId));
 
             assertThat(e.getMessage(), is(format("Anime with id = %s not found!", noExistingId)));
         }
