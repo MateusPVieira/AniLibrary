@@ -9,6 +9,7 @@ public class Library {
     @OneToMany
     private List<Title> titles;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Library(){}

@@ -1,8 +1,6 @@
 package com.mathsly.animelibrary.domain.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Title {
@@ -15,9 +13,10 @@ public class Title {
 
     private String author;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Title(){};
+    public Title(){}
 
     public void setId(Long id) {
         this.id = id;

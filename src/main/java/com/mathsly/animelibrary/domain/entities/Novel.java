@@ -1,6 +1,8 @@
 package com.mathsly.animelibrary.domain.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
@@ -10,6 +12,7 @@ public class Novel {
     private boolean isUpToDate;
     private boolean isFinished;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Novel(){}
