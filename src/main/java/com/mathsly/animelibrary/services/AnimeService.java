@@ -2,11 +2,14 @@ package com.mathsly.animelibrary.services;
 
 import com.mathsly.animelibrary.domain.entities.Anime;
 import com.mathsly.animelibrary.repositories.AnimeSQLiteRepository;
+import com.mathsly.animelibrary.utils.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static java.lang.String.format;
 
 @Service
 public class AnimeService {
@@ -17,7 +20,11 @@ public class AnimeService {
     }
 
     public Anime getOne(Long id){
-        return animeRepository.findById(id).orElseThrow(() -> new RuntimeException("Anime not found!"));
+        if (id == null) {
+            throw new IllegalArgumentException("The given id must not be null");
+        }
+
+        return animeRepository.findById(id).orElseThrow(() -> new BusinessException(format("Anime with id = %s not found!", id)));
     }
 
     public List<Anime> getAll(){
@@ -25,6 +32,9 @@ public class AnimeService {
     }
 
     public long save(Anime anime){
+        if (anime == null) {
+            throw new IllegalArgumentException("Anime must not be null");
+        }
         return animeRepository.saveAndFlush(anime).getId();
     }
 
