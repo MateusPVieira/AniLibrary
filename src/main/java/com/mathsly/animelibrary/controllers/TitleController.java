@@ -1,6 +1,8 @@
 package com.mathsly.animelibrary.controllers;
 
+import com.mathsly.animelibrary.domain.dto.AnimeDto;
 import com.mathsly.animelibrary.domain.dto.TitleDto;
+import com.mathsly.animelibrary.domain.entities.Anime;
 import com.mathsly.animelibrary.domain.entities.Title;
 import com.mathsly.animelibrary.services.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value="/title")
 public class TitleController {
 
-    private TitleService titleService;
+    private final TitleService titleService;
 
     @Autowired
     public TitleController(TitleService titleService){
@@ -47,6 +49,13 @@ public class TitleController {
     public ResponseEntity<Void> update(@RequestBody TitleDto titleDto, @PathVariable Long id){
         Title title = titleDto.toEntity();
         titleService.update(title, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@RequestBody AnimeDto animeDto, @PathVariable Long id){
+        Anime anime = animeDto.toEntity();
+        titleService.addMediaToTitle(id, anime);
         return ResponseEntity.noContent().build();
     }
 
