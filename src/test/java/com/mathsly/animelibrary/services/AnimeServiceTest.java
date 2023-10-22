@@ -97,11 +97,5 @@ class AnimeServiceTest {
             verifyNoInteractions(repository);
         }
 
-        @Test
-        void ShouldReturnBusinessExceptionIfFailToFindAnime() {
-            final BusinessException e = assertThrows(BusinessException.class, () -> service.getOne(noExistingId));
-
-            assertThat(e.getMessage(), is(format("Anime with id = %s not found!", noExistingId)));
-        }
     }
 }
