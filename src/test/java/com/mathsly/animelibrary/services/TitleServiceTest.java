@@ -31,7 +31,7 @@ class TitleServiceTest {
     @Mock
     TitleSQLiteRepository repository;
 
-    Title title;
+    Title testTitle;
     Anime anime;
 
 
@@ -49,9 +49,9 @@ class TitleServiceTest {
         noExistingId = 2L;
 
 
-        title = new Title();
-        title.setId(1L);
-        title.setAuthor("Toryama");
+        testTitle = new Title();
+        testTitle.setId(1L);
+        testTitle.setAuthor("Toryama");
     }
 
     @Nested
@@ -59,12 +59,12 @@ class TitleServiceTest {
     class GetOneMethodTest {
         @Test
         void ShouldFindTitleByIdWithSuccess() {
-            when(repository.findById(title.getId())).thenReturn(Optional.of(title));
+            when(repository.findById(testTitle.getId())).thenReturn(Optional.of(testTitle));
 
-            Title titleReturned = service.getOne(title.getId());
+            Title titleReturned = service.getOne(testTitle.getId());
 
-            assertEquals(Optional.of(title), Optional.of(titleReturned));
-            verify(repository).findById(title.getId());
+            assertEquals(Optional.of(testTitle), Optional.of(titleReturned));
+            verify(repository).findById(testTitle.getId());
             verifyNoMoreInteractions(repository);
         }
 
@@ -91,12 +91,12 @@ class TitleServiceTest {
     class SaveMethodTest {
         @Test
         void ShouldSaveTitle() {
-            when(repository.saveAndFlush(title)).thenReturn(title);
+            when(repository.saveAndFlush(testTitle)).thenReturn(testTitle);
 
-            long savedId = service.save(title);
+            long savedId = service.save(testTitle);
 
-            assertEquals(title.getId(), savedId);
-            verify(repository).saveAndFlush(title);
+            assertEquals(testTitle.getId(), savedId);
+            verify(repository).saveAndFlush(testTitle);
         }
 
         @Test
@@ -113,19 +113,19 @@ class TitleServiceTest {
     class AddMediaMethodTest {
         @Test
         void ShouldAddAnimeInTitle() {
-            when(repository.findById(title.getId())).thenReturn(Optional.ofNullable(title));
+            when(repository.findById(testTitle.getId())).thenReturn(Optional.ofNullable(testTitle));
 
-            service.addMediaToTitle(title.getId(), anime);
+            service.addMediaToTitle(testTitle.getId(), anime);
 
-            assertEquals(title.getAnime(), anime);
-            verify(repository).saveAndFlush(title);
+            assertEquals(testTitle.getAnime(), anime);
+            verify(repository).saveAndFlush(testTitle);
         }
 
         @Test
         void ShouldThrowExceptionWhenTitleDoNotExist() {
-            when(repository.findById(noExistingId)).thenReturn(Optional.ofNullable(title));
             assertThrows(IllegalArgumentException.class, () -> service.addMediaToTitle(noExistingId, anime));
         }
+
 
     }
 }
