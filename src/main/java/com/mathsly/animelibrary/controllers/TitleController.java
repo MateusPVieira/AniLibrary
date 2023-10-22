@@ -1,8 +1,12 @@
 package com.mathsly.animelibrary.controllers;
 
 import com.mathsly.animelibrary.domain.dto.AnimeDto;
+import com.mathsly.animelibrary.domain.dto.MangaDto;
+import com.mathsly.animelibrary.domain.dto.NovelDto;
 import com.mathsly.animelibrary.domain.dto.TitleDto;
 import com.mathsly.animelibrary.domain.entities.Anime;
+import com.mathsly.animelibrary.domain.entities.Manga;
+import com.mathsly.animelibrary.domain.entities.Novel;
 import com.mathsly.animelibrary.domain.entities.Title;
 import com.mathsly.animelibrary.services.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +32,7 @@ public class TitleController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TitleDto>> findAll() {
         List<Title> list = titleService.getAll();
-        List<TitleDto> listDto = list.stream().map(x -> new TitleDto(x)).collect(Collectors.toList());
+        List<TitleDto> listDto = list.stream().map(TitleDto::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
@@ -52,12 +56,27 @@ public class TitleController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody AnimeDto animeDto, @PathVariable Long id){
+    @PutMapping(value = "/{id}/anime")
+    public ResponseEntity<Void> addAnime(@RequestBody AnimeDto animeDto, @PathVariable Long id){
         Anime anime = animeDto.toEntity();
         titleService.addMediaToTitle(id, anime);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/{id}/manga")
+    public ResponseEntity<Void> addManga(@RequestBody MangaDto mangaDto, @PathVariable Long id){
+        Manga manga = mangaDto.toEntity();
+        titleService.addMediaToTitle(id, manga);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}/novel")
+    public ResponseEntity<Void> addNovel(@RequestBody NovelDto novelDto, @PathVariable Long id){
+        Novel novel = novelDto.toEntity();
+        titleService.addMediaToTitle(id, novel);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){

@@ -4,6 +4,9 @@ import com.mathsly.animelibrary.domain.entities.Anime;
 import com.mathsly.animelibrary.domain.entities.Manga;
 import com.mathsly.animelibrary.domain.entities.Novel;
 import com.mathsly.animelibrary.domain.entities.Title;
+import com.mathsly.animelibrary.repositories.AnimeSQLiteRepository;
+import com.mathsly.animelibrary.repositories.MangaSQLiteRepository;
+import com.mathsly.animelibrary.repositories.NovelSQLiteRepository;
 import com.mathsly.animelibrary.repositories.TitleSQLiteRepository;
 import com.mathsly.animelibrary.utils.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +20,20 @@ import static java.lang.String.format;
 @Service
 public class TitleService {
     TitleSQLiteRepository titleRepository;
+
+    AnimeSQLiteRepository animeRepository;
+
+    MangaSQLiteRepository mangaRepository;
+
+    NovelSQLiteRepository novelRepository;
+
     @Autowired
-    public TitleService(TitleSQLiteRepository titleRepository){
+    public TitleService(TitleSQLiteRepository titleRepository, AnimeSQLiteRepository animeRepository, MangaSQLiteRepository mangaRepository, NovelSQLiteRepository novelRepository){
+
         this.titleRepository = titleRepository;
+        this.animeRepository = animeRepository;
+        this.mangaRepository = mangaRepository;
+        this.novelRepository = novelRepository;
     }
 
     public Title getOne(Long id){
@@ -66,20 +80,30 @@ public class TitleService {
     public <T> void addMediaToTitle(Long id, T media) {
         Optional<Title> title = titleRepository.findById(id);
         if (title.isPresent()) {
-            if (media instanceof Anime) {
-                title.get().setAnime((Anime) media);
+            if (media instanceof Anime anime) {
+                if (anime.getId() == null) {
+                    anime = animeRepository.saveAndFlush(anime);
+                }
+                title.get().setAnime(anime);
 
-            } else if (media instanceof Manga) {
-                title.get().setManga((Manga) media);
+            } else if (media instanceof Manga manga) {
+                if (manga.getId() == null) {
+                    manga = mangaRepository.saveAndFlush(manga);
+                }
+                title.get().setManga(manga);
 
-            } else if (media instanceof Novel) {
-                title.get().setNovel((Novel) media);
+            } else if (media instanceof Novel novel) {
+                if (novel.getId() == null) {
+                    novel = novelRepository.saveAndFlush(novel);
+                }
+                title.get().setNovel(novel);
             }
 
             titleRepository.saveAndFlush(title.get());
-        }
+        } else {
 
-        throw new IllegalArgumentException("Title must not be null");
+            throw new IllegalArgumentException("Title must not be null");
+        }
     }
 
 }
