@@ -1,5 +1,6 @@
 package com.mathsly.animelibrary.services;
 
+import com.mathsly.animelibrary.domain.entities.Anime;
 import com.mathsly.animelibrary.domain.entities.Novel;
 import com.mathsly.animelibrary.repositories.NovelSQLiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class NovelService {
                     novelToUpdate.setCurrentChapter(novel.getCurrentChapter());
                     novelToUpdate.setFinished(novel.isFinished());
                     novelToUpdate.setLastChapter(novel.getLastChapter());
+                    novelToUpdate.setUpToDate(verifyIfItIsUpToDate(novel));
                     return save(novelToUpdate);
                 });
     }
@@ -46,6 +48,8 @@ public class NovelService {
         novelRepository.deleteById(id);
     }
 
-
+    public boolean verifyIfItIsUpToDate(Novel novel) {
+        return novel.getCurrentChapter() == novel.getLastChapter();
+    }
 
 }

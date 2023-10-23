@@ -1,5 +1,6 @@
 package com.mathsly.animelibrary.services;
 
+import com.mathsly.animelibrary.domain.entities.Anime;
 import com.mathsly.animelibrary.domain.entities.Manga;
 import com.mathsly.animelibrary.repositories.MangaSQLiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class MangaService {
                     mangaToUpdate.setCurrentChapter(manga.getCurrentChapter());
                     mangaToUpdate.setFinished(manga.isFinished());
                     mangaToUpdate.setLastChapter(manga.getLastChapter());
+                    mangaToUpdate.setUpToDate(verifyIfItIsUpToDate(manga));
                     return save(mangaToUpdate);
                 });
     }
@@ -46,6 +48,8 @@ public class MangaService {
         mangaRepository.deleteById(id);
     }
 
-
+    public boolean verifyIfItIsUpToDate(Manga manga) {
+        return manga.getCurrentChapter() == manga.getLastChapter();
+    }
 
 }
