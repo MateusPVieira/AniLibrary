@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/title")
-public class imorzoTitleController {
+public class TitleController {
     private final TitleService titleService;
     private final UploadService uploadService;
 

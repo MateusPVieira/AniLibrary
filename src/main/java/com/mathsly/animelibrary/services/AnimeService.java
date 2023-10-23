@@ -48,12 +48,17 @@ public class AnimeService {
                     animeToUpdate.setCurrentChapter(anime.getCurrentChapter());
                     animeToUpdate.setFinished(anime.isFinished());
                     animeToUpdate.setLastChapter(anime.getLastChapter());
+                    animeToUpdate.setUpToDate(verifyIfItIsUpToDate(animeToUpdate));
                     return save(animeToUpdate);
                 });
     }
 
     public void delete (Long id){
         animeRepository.deleteById(id);
+    }
+
+    public boolean verifyIfItIsUpToDate(Anime anime) {
+        return anime.getCurrentChapter() == anime.getLastChapter();
     }
 
 
