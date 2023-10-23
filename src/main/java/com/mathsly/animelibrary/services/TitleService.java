@@ -67,6 +67,8 @@ public class TitleService {
                     titleToUpdate.setManga(title.getManga());
                     titleToUpdate.setNovel(title.getNovel());
                     titleToUpdate.setAuthor(title.getAuthor());
+                    titleToUpdate.setName(title.getName());
+                    titleToUpdate.setCoverPath(title.getCoverPath());
 
                     return save(titleToUpdate);
                 });

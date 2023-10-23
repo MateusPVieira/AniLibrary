@@ -12,6 +12,10 @@ public class Title {
     private Novel novel;
 
     private String author;
+
+    private String name;
+
+    private String coverPath;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,5 +60,20 @@ public class Title {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getCoverPath() {
+        return coverPath;
+    }
+
+    public void setCoverPath(String coverPath) {
+        this.coverPath = coverPath;
     }
 }

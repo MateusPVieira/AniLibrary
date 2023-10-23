@@ -10,12 +10,18 @@ public class TitleDto {
     private NovelDto novel;
     private String author;
 
+    private String name;
+
+    private String coverPath;
+
     public TitleDto() {
         // Construtor padrão
     }
 
     public TitleDto(Title title) {
         this.id = title.getId();
+        this.name = title.getName();
+        this.coverPath = title.getCoverPath();
 
         if (title.getManga() != null) {
             this.manga = new MangaDto(title.getManga());
@@ -72,6 +78,22 @@ public class TitleDto {
         this.author = author;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCoverPath() {
+        return coverPath;
+    }
+
+    public void setCoverPath(String coverPath) {
+        this.coverPath = coverPath;
+    }
+
     public Title toEntity() {
         Title title = new Title();
         title.setId(this.id);
@@ -88,7 +110,11 @@ public class TitleDto {
             title.setNovel(this.novel.toEntity());
         }
 
+        title.setName(this.name);
+        title.setCoverPath(this.coverPath);
         title.setAuthor(this.author);
         return title;
     }
+
+
 }
